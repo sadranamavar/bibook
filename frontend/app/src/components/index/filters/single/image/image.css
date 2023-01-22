@@ -1,0 +1,12 @@
+@media screen and (max-width: 992px) {
+    .book-view-image {
+      max-width: 30rem;
+      border-radius: 1.5rem;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .book-view-image {
+      max-width: 20rem;
+      border-radius: 1.5rem;
+    }
+  }

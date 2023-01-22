@@ -1,0 +1,10 @@
+.dashboard-menu-icon{
+    max-width: 5rem;
+
+
+}
+
+.dashboard-menu-icon:hover{
+    cursor: pointer;    
+
+}

@@ -1,0 +1,42 @@
+@media screen and (min-width: 1200px) {
+  div.book-view-btn-download {
+    max-width: 79%;
+    margin-left: 5.5rem;
+  }
+}
+@media screen and (max-width: 1400px) {
+  div.book-view-btn-download {
+    max-width: 79%;
+    margin-left: 5.5rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  div.book-view-btn-download {
+    max-width: 79%;
+    margin-left: 5.5rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  div.book-view-btn-download {
+    max-width: 94.5%;
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 992px) {
+  div.book-view-btn-download {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+.book-view-btn-download {
+  background-color: #4c566a;
+  color: #f0f0f0;
+  border-radius: 0.85rem;
+}
+
+.book-view-btn-download:hover {
+  background-color: #4c566aee;
+  color: #f0f0f0;
+  transition: 50ms;
+}

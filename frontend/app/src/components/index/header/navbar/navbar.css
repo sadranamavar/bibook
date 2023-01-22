@@ -1,0 +1,20 @@
+.dropdown-btn {
+    border-width: 1px;
+    border-style: solid;
+    border-color:#a2a2a233;
+    background:none;
+}
+.dropdown-btn:hover {
+    cursor:pointer;
+    border-color:#a2a2a2aa;
+    transition: 50ms;
+
+}
+
+.menu-icon{
+    max-width: 2.5rem;
+}
+
+.menu-ul{
+    max-width: fit-content;
+}

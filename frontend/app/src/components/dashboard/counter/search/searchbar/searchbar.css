@@ -1,0 +1,17 @@
+.dashboard-search-input{
+    border-radius: 100rem;
+    border:0;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+    padding: .5rem;
+}
+
+.dashboard-search-input::placeholder{
+    opacity: 40%;
+}
+
+.dashboard-search-btn{
+    background: #fff;
+    border: 0;
+    border-radius: 21rem;
+}

@@ -1,0 +1,11 @@
+.book-image{
+    width: 80%;
+    border-radius: 1rem;
+    
+}
+
+.book-image:hover{
+    opacity: 90%;
+    transition: 70ms;
+    cursor: pointer;
+}

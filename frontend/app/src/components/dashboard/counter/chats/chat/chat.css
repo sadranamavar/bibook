@@ -1,0 +1,9 @@
+.counter-chat-image{
+    max-width: 2rem;
+    border-radius: 100%;
+}
+.counter-chat:hover{
+    opacity: 70%;
+    transition:50ms;
+    cursor: pointer;
+}

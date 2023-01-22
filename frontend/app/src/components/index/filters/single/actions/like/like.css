@@ -1,0 +1,23 @@
+
+.like-btn{
+    margin: auto;
+}
+
+@media screen and (max-width: 768px)  {
+    .like-btn{
+        margin: -.25rem;
+        width: 170%;
+    }
+}
+
+@media screen and (min-width: 768px)  {
+    .like-btn{
+        max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 1400px)  {
+    .like-btn{
+        padding: .5rem;
+    }
+}

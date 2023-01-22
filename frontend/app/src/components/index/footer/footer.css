@@ -1,0 +1,18 @@
+.footer{
+    background: #f0f0f0;
+}
+
+.icon {
+    max-width: 25px;
+}
+
+.text-gray{
+    color:gray;
+} 
+
+.ops-90{
+    opacity: 70%;
+}
+.license{
+    margin-left: -10%;
+}

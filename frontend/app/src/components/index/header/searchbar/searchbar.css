@@ -1,0 +1,38 @@
+.search {
+  position: absolute;
+  top: 0.7rem;
+  left: 30%;
+  width: 40%;
+  height: 65%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #a2a2a233;
+}
+
+.search-input {
+  position: absolute;
+  top: -0.5rem;
+  margin-top: 0;
+  margin-left: 1.2rem;
+  border: 0;
+  background: none;
+  width: 90%;
+}
+
+.search-input:focus {
+  border: 0;
+  outline: none;
+}
+
+.search-logo {
+  position: absolute;
+  margin-top: -0.5rem;
+  width: 25px;
+}
+
+.search-focus:focus-within {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #a2a2a2aa;
+  transition: 100ms;
+}

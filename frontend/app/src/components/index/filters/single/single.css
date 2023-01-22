@@ -1,0 +1,10 @@
+.book-view {
+  border-radius: 1rem;
+
+}
+
+.book-view-body {
+  height: 100vh;
+  overflow: scroll;
+}
+
