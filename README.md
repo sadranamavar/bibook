@@ -8,7 +8,9 @@ this is a small online library
 
 run backend  
 
-```cd backend; ```
+```cd backend ```
+
+```mv core/core/settings.py.sample core/core/settings.py```
 
 ```docker compose build ```
 
