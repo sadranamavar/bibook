@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-
+from bibook.models import SafeDelete
 # Create your models here.
 
 
@@ -15,6 +15,11 @@ class User(AbstractUser):
         "bibook.Book", verbose_name=_("save book"), related_name='book_save', blank=True)
     liked = models.ManyToManyField(
         "bibook.Book", verbose_name=_("like book"), related_name='book_like', blank=True)
+    deleted = models.BooleanField(_('delete'), default=False)
+    
+    def delete(self):
+        self.deleted = True
+        self.save()
 
 
 class Message(models.Model):

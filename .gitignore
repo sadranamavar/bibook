@@ -270,4 +270,4 @@ GitHub.sublime-settings
 settings.py
 
 # migrations 
-migrations/*
+migrations/.*
