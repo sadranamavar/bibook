@@ -2,7 +2,6 @@ import Category from "./category/category";
 import BookList from "../../../context/books";
 import { useContext } from "react";
 import "./home.css";
-import Footer from "../footer/footer";
 
 const Home = () => {
   const booklist = useContext(BookList);

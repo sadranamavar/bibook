@@ -14,7 +14,7 @@ const Header = ({props}) => {
       <div className="col-8"></div>
       <div className="col-2 row">
         <Mail />
-        <Username props={"sadra"} />
+        <Username props={"username"} />
       </div>
     </div>
   );

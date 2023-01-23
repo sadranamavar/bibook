@@ -1,3 +1,14 @@
 FROM node:lts-alpine
+
 WORKDIR /code
-CMD [ "npm", "start" ]
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY app/package.json ./
+
+COPY app/package-lock.json ./
+
+RUN npm install
+
+
+
