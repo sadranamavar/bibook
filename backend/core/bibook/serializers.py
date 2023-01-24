@@ -5,7 +5,7 @@ from bibook.models import Book,Category
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ["title", "author", "translator", "about", "language",
+        fields = ["id","title", "author", "translator", "about", "language","length",
                   "publisher", "file_format", "file_size", "file_url", "category"]
         read_only_fields = ["view", "liked", "saved", "download"]
 
