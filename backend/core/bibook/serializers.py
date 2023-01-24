@@ -17,7 +17,7 @@ class BookSerializer(serializers.ModelSerializer):
         read_only_fields = ["view", "liked", "saved", "download"]
 
 
-class CategorySerializer(serializers.ModelField):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        field = "__all__"
+        fields = "__all__"
