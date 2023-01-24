@@ -1,8 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import gettext_lazy as _
 from bibook.models import SafeDelete
 # Create your models here.
+
+
+class UserSafeDelete(UserManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted=False)
 
 
 class User(AbstractUser):
@@ -16,7 +21,9 @@ class User(AbstractUser):
     liked = models.ManyToManyField(
         "bibook.Book", verbose_name=_("like book"), related_name='book_like', blank=True)
     deleted = models.BooleanField(_('delete'), default=False)
-    
+
+    objects = UserSafeDelete
+
     def delete(self):
         self.deleted = True
         self.save()
