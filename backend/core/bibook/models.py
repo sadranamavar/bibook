@@ -3,11 +3,9 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
-
 class SafeDelete(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(deleted = False)
-
+        return super().get_queryset().filter(deleted=False)
 
 
 class Book(models.Model):
@@ -28,7 +26,6 @@ class Book(models.Model):
     file_url = models.URLField(_("link"), max_length=255)
 
     # system info
-    view = models.IntegerField(_("view"), default=0)
     created_time = models.DateTimeField(_("create_time"), auto_now_add=True)
     updated_time = models.DateTimeField(_("update_time"), auto_now=True)
     liked = models.IntegerField(_("like"), default=0)
@@ -49,7 +46,6 @@ class Book(models.Model):
     class Meta:
         verbose_name = _("book")
         verbose_name_plural = _("books")
-
 
 
 class Category(models.Model):
