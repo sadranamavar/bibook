@@ -4,7 +4,7 @@ from bibook.models import Book, Category
 
 class CategoryListingField(serializers.RelatedField):
     def to_representation(self, value):
-        return {'id':value.id, 'title':value.title}
+        return {'id': value.id, 'title': value.title}
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -13,8 +13,8 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ["id", "title", "author", "translator", "about", "language", "length",
-                  "publisher", "file_format", "file_size", "file_url", "category"]
-        read_only_fields = ["view", "liked", "saved", "download"]
+                  "publisher", "file_format", "file_size", "file_url", "category", "liked", "saved", "download"]
+        read_only_fields = ["liked", "saved", "download"]
 
 
 class CategorySerializer(serializers.ModelSerializer):
