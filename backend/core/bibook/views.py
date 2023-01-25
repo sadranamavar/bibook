@@ -4,6 +4,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from bibook.serializers import BookSerializer, CategorySerializer
 from bibook.models import Book, Category
+from comment.models import Comment
+from comment.serializers import CommentSerializer
 
 # Create your views here.
 
@@ -16,16 +18,22 @@ class BookView(ModelViewSet):
     @action(methods=['post', 'get'], detail=True, url_path='like', url_name='like')
     def like(self, request, pk=None):
         book = self.get_object()
-        book.liked += 1 
+        book.liked += 1
         book.save()
-        return Response({'status':200})
+        return Response({'status': 200})
 
     @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save')
     def save(self, request, pk=None):
         book = self.get_object()
-        book.saved += 1 
+        book.saved += 1
         book.save()
-        return Response({'status':200})
+        return Response({'status': 200})
+
+    @action(methods=['get'], detail=True, url_path='get-comments', url_name='get-comment')
+    def get_comment(self, request, pk=None):
+        comment = Comment.objects.filter(book=pk)
+        comment = CommentSerializer(comment, many=True)
+        return Response(comment.data)
 
 
 class CategoryView(ModelViewSet):
