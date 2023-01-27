@@ -9,6 +9,9 @@ class Comment (models.Model):
     book = models.ForeignKey("bibook.Book", verbose_name=_(
         "book"), on_delete=models.CASCADE)
     text = models.TextField(_("text"))
+    created_time = models.DateTimeField(_("create_time"), auto_now_add=True)
+    updated_time = models.DateTimeField(_("update_time"), auto_now=True)
+
 
     class Meta:
         verbose_name = _("comment")
