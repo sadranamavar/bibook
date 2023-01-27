@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from bibook import urls as bibook_url
+from account import urls as account_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(bibook_url))
+    path('', include(bibook_url)),
+    path('account/', include(account_url))
 ]

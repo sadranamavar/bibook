@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # drf 
+    "rest_framework",
+        # jwt
+    'rest_framework_simplejwt',
+    # local app
     'bibook',
     'account',
     'comment',
