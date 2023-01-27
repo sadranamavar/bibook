@@ -7,6 +7,7 @@ from bibook.serializers import BookSerializer, CategorySerializer
 from bibook.models import Book, Category
 from comment.models import Comment
 from comment.serializers import CommentSerializer
+from account.models import User
 
 # Create your views here.
 
@@ -15,20 +16,43 @@ class BookView(ModelViewSet):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    @action(methods=['post', 'get'], detail=True, url_path='like', url_name='like')
+    @action(methods=['post', 'get'], detail=True, url_path='like', url_name='like', permission_classes = [permissions.IsAuthenticated])
     def like(self, request, pk=None):
         book = self.get_object()
-        book.liked += 1
-        book.save()
-        return Response({'status': 200})
+        user = request.user
+        try:
+            User.objects.get(id=user.id, liked__id=book.id)
+            user.liked.remove(book.id)
+            book.liked -=1
+            status = 'remove'
 
-    @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save')
+        except :
+            user.liked.add(book.id)
+            book.liked += 1
+            status = 'add'
+        user.save()
+        book.save()
+        return Response({"status": status})
+
+    @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save', permission_classes = [permissions.IsAuthenticated])
     def save(self, request, pk=None):
         book = self.get_object()
-        book.saved += 1
+        user = request.user
+        try:
+            User.objects.get(id=user.id, saved__id=book.id)
+            user.saved.remove(book.id)
+            book.saved -=1
+            status = 'remove'
+
+        except :
+            user.saved.add(book.id)
+            book.saved += 1
+            status = 'add'
+        user.save()
         book.save()
-        return Response({'status': 200})
+        return Response({"status": status})
 
     @action(methods=['get'], detail=True, url_path='get-comments', url_name='get-comment')
     def get_comment(self, request, pk=None):
