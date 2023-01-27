@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -34,6 +35,17 @@ class BookView(ModelViewSet):
         comment = Comment.objects.filter(book=pk)
         comment = CommentSerializer(comment, many=True)
         return Response(comment.data)
+
+    @action(methods=['post'], detail=True, url_path='add-comment', url_name='add-comment', permission_classes=[permissions.IsAuthenticated])
+    def add_comment(self, request, pk=None):
+        comment = request.data
+        comment['book'] = pk
+        comment['user'] = request.user.id
+        serializer = CommentSerializer(data=comment)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 
 class CategoryView(ModelViewSet):
