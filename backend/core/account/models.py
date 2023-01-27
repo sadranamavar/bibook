@@ -22,7 +22,7 @@ class User(AbstractUser):
         "bibook.Book", verbose_name=_("like book"), related_name='book_like', blank=True)
     deleted = models.BooleanField(_('delete'), default=False)
 
-    objects = UserSafeDelete
+    objects = UserSafeDelete()
 
     def delete(self):
         self.deleted = True

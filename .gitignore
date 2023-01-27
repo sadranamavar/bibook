@@ -271,3 +271,7 @@ settings.py
 
 # migrations 
 migrations/
+
+
+# my todo list
+TODO.md
