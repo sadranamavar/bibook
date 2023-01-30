@@ -275,3 +275,7 @@ migrations/
 
 # my todo list
 TODO.md
+
+# config file
+*.conf
+

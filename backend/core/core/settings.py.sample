@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # drf
+    # drf 
     "rest_framework",
         # jwt
     'rest_framework_simplejwt',
@@ -132,6 +132,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#   default custom user 
 AUTH_USER_MODEL = 'account.User'
 
 
@@ -141,3 +142,14 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+REDIS_PASS = ' sample_password '
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "<your username (gmail address)>"
+DEFAULT_FROM_EMAIL = "<your email adders>"
+EMAIL_HOST_PASSWORD = "<your password>"

@@ -6,3 +6,12 @@ services:
       - ./core/:/code
     ports:
       - "8000:8000"
+
+  redis:
+    image: redis
+    command: ["redis-server", "/etc/redis/redis.conf"]
+    volumes:
+      - ./dbs/redis/redis.conf:/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+

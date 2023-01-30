@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from bibook.models import SafeDelete
+
+
 # Create your models here.
 
 
@@ -26,6 +29,8 @@ class User(AbstractUser):
 
     def delete(self):
         self.deleted = True
+        self.email = f'delete on {timezone.now()}' + self.email
+        self.username = f'delete on {timezone.now()}' + self.username
         self.save()
 
 

@@ -26,15 +26,15 @@ class BookView(ModelViewSet):
             User.objects.get(id=user.id, liked__id=book.id)
             user.liked.remove(book.id)
             book.liked -=1
-            status = 'remove'
+            status = 202
 
         except :
             user.liked.add(book.id)
             book.liked += 1
-            status = 'add'
+            status = 201
         user.save()
         book.save()
-        return Response({"status": status})
+        return Response({}, status=status)
 
     @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save', permission_classes = [permissions.IsAuthenticated])
     def save(self, request, pk=None):
@@ -44,15 +44,15 @@ class BookView(ModelViewSet):
             User.objects.get(id=user.id, saved__id=book.id)
             user.saved.remove(book.id)
             book.saved -=1
-            status = 'remove'
+            status = 202
 
         except :
             user.saved.add(book.id)
             book.saved += 1
-            status = 'add'
+            status = 201
         user.save()
         book.save()
-        return Response({"status": status})
+        return Response({}, status=status)
 
     @action(methods=['get'], detail=True, url_path='get-comments', url_name='get-comment')
     def get_comment(self, request, pk=None):
