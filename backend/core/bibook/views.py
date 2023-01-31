@@ -71,6 +71,14 @@ class BookView(ModelViewSet):
             return Response(serializer.data)
         return Response(serializer.errors)
 
+    @action(methods=['delete'], detail=True, url_path='del-comment', url_name='del-comment', permission_classes=[permissions.IsAuthenticatedOrReadOnly])
+    def del_comment(self, request, pk=None):
+        comment = Comment.objects.get(id=request.query_params['id'])
+        if comment.user.id == request.user.id:
+            comment.delete()
+            return Response({}, status=202)
+        return Response({}, status=401)
+
 
 class CategoryView(ModelViewSet):
 
