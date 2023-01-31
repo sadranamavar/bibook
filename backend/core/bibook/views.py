@@ -17,18 +17,22 @@ class BookView(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filterset_fields = ['author', 'translator',
+                        'language', 'publisher', 'category']
+    search_fields = ['title', 'author', 'translator', 'publisher']
+    ordering_fields = ['liked', 'saved', 'created_time', 'length']
 
-    @action(methods=['post', 'get'], detail=True, url_path='like', url_name='like', permission_classes = [permissions.IsAuthenticated])
+    @action(methods=['post', 'get'], detail=True, url_path='like', url_name='like', permission_classes=[permissions.IsAuthenticated])
     def like(self, request, pk=None):
         book = self.get_object()
         user = request.user
         try:
             User.objects.get(id=user.id, liked__id=book.id)
             user.liked.remove(book.id)
-            book.liked -=1
+            book.liked -= 1
             status = 202
 
-        except :
+        except:
             user.liked.add(book.id)
             book.liked += 1
             status = 201
@@ -36,17 +40,17 @@ class BookView(ModelViewSet):
         book.save()
         return Response({}, status=status)
 
-    @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save', permission_classes = [permissions.IsAuthenticated])
+    @action(methods=['post', 'get'], detail=True, url_path='save', url_name='save', permission_classes=[permissions.IsAuthenticated])
     def save(self, request, pk=None):
         book = self.get_object()
         user = request.user
         try:
             User.objects.get(id=user.id, saved__id=book.id)
             user.saved.remove(book.id)
-            book.saved -=1
+            book.saved -= 1
             status = 202
 
-        except :
+        except:
             user.saved.add(book.id)
             book.saved += 1
             status = 201
