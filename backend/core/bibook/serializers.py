@@ -13,7 +13,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ["id", "title", "author", "translator", "about", "language", "length",
-                  "publisher", "file_format", "file_size", "file_url", "category", "liked", "saved", "download"]
+                  "publisher", "file_format", "file_size", "file_url", "category", "liked",
+                  "saved", "download", "image_url"]
+                  
         read_only_fields = ["liked", "saved", "download"]
 
 

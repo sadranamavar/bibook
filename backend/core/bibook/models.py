@@ -19,6 +19,11 @@ class Book(models.Model):
     length = models.IntegerField(_("length"))
     language = models.CharField(_("language"), max_length=50)
     publisher = models.CharField(_("publisher"), max_length=255)
+        # image field
+    def upload_to(instance, filename):
+        return f'media/books_image/{filename}'
+    image_url = models.ImageField(
+        _("image"), upload_to=upload_to,)
 
     # file info
     file_format = models.CharField(_("format"), max_length=8)

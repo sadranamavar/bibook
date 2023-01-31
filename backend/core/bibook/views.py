@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.decorators import action
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 from bibook.serializers import BookSerializer, CategorySerializer
 from bibook.models import Book, Category
 from comment.models import Comment
@@ -16,6 +17,7 @@ class BookView(ModelViewSet):
 
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filterset_fields = ['author', 'translator',
                         'language', 'publisher', 'category']

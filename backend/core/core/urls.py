@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 from bibook import urls as bibook_url
 from account import urls as account_url
 
@@ -23,3 +25,6 @@ urlpatterns = [
     path('', include(bibook_url)),
     path('account/', include(account_url))
 ]
+
+# static and media url
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
