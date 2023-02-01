@@ -16,6 +16,11 @@ class UserSafeDelete(UserManager):
 class User(AbstractUser):
     email = models.EmailField(
         _("email address"), blank=False, null=False, unique=True)
+         # image field
+    def upload_to(instance, filename):
+        return f'media/books_image/{filename}'
+    image_url = models.ImageField(
+        _("image"), upload_to=upload_to, blank=True, null=True)
     birthday = models.DateField(
         _("birthday"), auto_now=False, auto_now_add=False, null=True, blank=True)
     verify = models.BooleanField(_("verify"), default=False)

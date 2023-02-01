@@ -3,35 +3,49 @@ from random import randrange
 from django.db.models import Q
 from django.conf import settings
 from django.core.mail import send_mail
+from rest_framework import generics
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from account.serializers import UserSerializer, ChangePasswordSerializer
 from account.models import User
+from account.serializers import UserSerializer, ChangePasswordSerializer, UserUpdateSerializer, UserProfile
+from account.permissions import IsUser
 
 # Create your views here.
 
 
-class CreateUser(APIView):
-    def post(self, request):
-        data = request.data
-        serializer = UserSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            user = User.objects.get(email=serializer.data['email'])
-            user.set_password(data['password'])
-            user.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+class CreateUser(generics.CreateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
 
 class DeleteUser(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsUser]
 
-    def delete(self, request):
+    def delete(self, request, pk):
         user = User.objects.get(id=request.user.id)
         user.delete()
-        return Response({}, status=204)
+        return Response({}, status=201)
+
+
+class UpdateUser(APIView):
+    permission_classes = [IsUser]
+
+    def post(self, request):
+        serializer = UserUpdateSerializer(
+            request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class ProfileUser(generics.RetrieveAPIView):
+    serializer_class = UserProfile
+    queryset = User.objects.all()
+    lookup_field = "username"
 
 
 class ChangePassword(APIView):
@@ -94,14 +108,14 @@ class ResetPassword(APIView):
     def post(self, request):
         try:
             user = User.objects.get(
-                Q(username=request.data['user']) | Q(email=request.data['user'])) 
+                Q(username=request.data['user']) | Q(email=request.data['user']))
             email = user.email
             verify_code = randrange(1000, 10000)
             r.set(str(user.username), verify_code, 75)
             message = f'verify code : \n {verify_code}'
             subject = 'reset password'
             send_mail(subject=subject, message=message,
-                    from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email])
+                      from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email])
             return Response({}, status=200)
 
         except:
@@ -119,7 +133,7 @@ class ResetPassword(APIView):
                     user.save()
                     r.delete(str(user.username))
 
-                    return Response({"detail":"password updated"}, status=202)
+                    return Response({"detail": "password updated"}, status=202)
                 return Response({"detail": "verify_code not valid"}, status=401)
             return Response({'detail': 'verify_code not find'}, status=406)
 
