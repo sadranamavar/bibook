@@ -8,6 +8,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
 from account.models import User
 from account.serializers import UserSerializer, ChangePasswordSerializer, UserUpdateSerializer, UserProfile
 from account.permissions import IsUser
@@ -139,3 +140,10 @@ class ResetPassword(APIView):
 
         except:
             return Response({"detail": "username or email not find"}, status=401)
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        request.data['username'] = User.objects.get(
+            Q(username=request.data['username']) | Q(email=request.data['username'])).username
+        return super().post(request, *args, **kwargs)
