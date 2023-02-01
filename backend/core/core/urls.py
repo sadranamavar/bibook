@@ -21,9 +21,9 @@ from bibook import urls as bibook_url
 from account import urls as account_url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(bibook_url)),
-    path('account/', include(account_url))
+    path("admin/", admin.site.urls),
+    path("", include(bibook_url)),
+    path("account/", include(account_url)),
 ]
 
 # static and media url

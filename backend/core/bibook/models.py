@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 # Create your models here.
 
 
@@ -9,21 +10,25 @@ class SafeDelete(models.Manager):
 
 
 class Book(models.Model):
-
     # book info
     title = models.CharField(_("title"), max_length=255)
     author = models.CharField(_("author"), max_length=255)
     translator = models.CharField(
-        _('translator'), max_length=255, null=True, blank=True)
+        _("translator"), max_length=255, null=True, blank=True
+    )
     about = models.TextField(_("about"))
     length = models.IntegerField(_("length"))
     language = models.CharField(_("language"), max_length=50)
     publisher = models.CharField(_("publisher"), max_length=255)
-        # image field
+
+    # image field
     def upload_to(instance, filename):
-        return f'media/books_image/{filename}'
+        return f"media/books_image/{filename}"
+
     image_url = models.ImageField(
-        _("image"), upload_to=upload_to,)
+        _("image"),
+        upload_to=upload_to,
+    )
 
     # file info
     file_format = models.CharField(_("format"), max_length=8)
@@ -57,8 +62,8 @@ class Category(models.Model):
     title = models.CharField(_("title"), max_length=255)
 
     class Meta:
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
 
     def __str__(self):
         return self.title

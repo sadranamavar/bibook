@@ -10,7 +10,12 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from account.models import User
-from account.serializers import UserSerializer, ChangePasswordSerializer, UserUpdateSerializer, UserProfile
+from account.serializers import (
+    UserSerializer,
+    ChangePasswordSerializer,
+    UserUpdateSerializer,
+    UserProfile,
+)
 from account.permissions import IsUser
 
 # Create your views here.
@@ -36,7 +41,8 @@ class UpdateUser(APIView):
 
     def post(self, request):
         serializer = UserUpdateSerializer(
-            request.user, data=request.data, partial=True)
+            request.user, data=request.data, partial=True
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -64,7 +70,7 @@ class ChangePassword(APIView):
 
 
 # connect to redis
-r = Redis(host='redis', port=6379, password=settings.REDIS_PASS)
+r = Redis(host="redis", port=6379, password=settings.REDIS_PASS)
 
 
 class VerifyEmail(APIView):
@@ -74,76 +80,103 @@ class VerifyEmail(APIView):
         user = User.objects.get(id=request.user.id)
 
         if user.verify:
-            return Response({'user_stats': "already verified"})
+            return Response({"user_stats": "already verified"})
 
         email = user.email
         verify_code = randrange(1000, 10000)
         r.set(str(user.email), verify_code, 75)
-        message = f'verify code : \n {verify_code}'
-        subject = 'verify email'
-        send_mail(subject=subject, message=message,
-                  from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email])
+        message = f"verify code : \n {verify_code}"
+        subject = "verify email"
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+        )
         return Response({}, status=200)
 
     def post(self, request):
         user = User.objects.get(id=request.user.id)
 
         if user.verify:
-            return Response({'user_stats': "already verified"})
+            return Response({"user_stats": "already verified"})
 
         if verify_code := r.get(str(user.email)):
-
-            if str(request.data['verify_code']) == str(verify_code.decode('ascii')):
-
+            if str(request.data["verify_code"]) == str(
+                verify_code.decode("ascii")
+            ):
                 user.verify = True
                 user.save()
                 r.delete(str(user.email))
 
-                return Response({"user": user.username, "email": user.email, "verify_status": user.verify})
+                return Response(
+                    {
+                        "user": user.username,
+                        "email": user.email,
+                        "verify_status": user.verify,
+                    }
+                )
             return Response({"detail": "verify_code not valid"}, status=401)
-        return Response({'detail': 'verify_code not find'}, status=406)
+        return Response({"detail": "verify_code not find"}, status=406)
 
 
 class ResetPassword(APIView):
-
     def post(self, request):
         try:
             user = User.objects.get(
-                Q(username=request.data['user']) | Q(email=request.data['user']))
+                Q(username=request.data["user"])
+                | Q(email=request.data["user"])
+            )
             email = user.email
             verify_code = randrange(1000, 10000)
             r.set(str(user.username), verify_code, 75)
-            message = f'verify code : \n {verify_code}'
-            subject = 'reset password'
-            send_mail(subject=subject, message=message,
-                      from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[email])
+            message = f"verify code : \n {verify_code}"
+            subject = "reset password"
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+            )
             return Response({}, status=200)
 
         except:
-            return Response({"detail": "username or email not find"}, status=401)
+            return Response(
+                {"detail": "username or email not find"}, status=401
+            )
 
     def patch(self, request):
         try:
             user = User.objects.filter(
-                Q(username=request.data['user']) | Q(email=request.data['user']))
+                Q(username=request.data["user"])
+                | Q(email=request.data["user"])
+            )
             if verify_code := r.get(str(user.username)):
-
-                if str(request.data['verify_code']) == str(verify_code.decode('ascii')):
-
+                if str(request.data["verify_code"]) == str(
+                    verify_code.decode("ascii")
+                ):
                     user.set_password(request.data["password"])
                     user.save()
                     r.delete(str(user.username))
 
-                    return Response({"detail": "password updated"}, status=202)
-                return Response({"detail": "verify_code not valid"}, status=401)
-            return Response({'detail': 'verify_code not find'}, status=406)
+                    return Response(
+                        {"detail": "password updated"}, status=202
+                    )
+                return Response(
+                    {"detail": "verify_code not valid"}, status=401
+                )
+            return Response({"detail": "verify_code not find"}, status=406)
 
         except:
-            return Response({"detail": "username or email not find"}, status=401)
+            return Response(
+                {"detail": "username or email not find"}, status=401
+            )
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
-        request.data['username'] = User.objects.get(
-            Q(username=request.data['username']) | Q(email=request.data['username'])).username
+        request.data["username"] = User.objects.get(
+            Q(username=request.data["username"])
+            | Q(email=request.data["username"])
+        ).username
         return super().post(request, *args, **kwargs)

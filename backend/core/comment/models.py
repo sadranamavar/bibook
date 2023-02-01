@@ -3,14 +3,16 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
-class Comment (models.Model):
-    user = models.ForeignKey("account.User", verbose_name=_(
-        "user"), on_delete=models.CASCADE)
-    book = models.ForeignKey("bibook.Book", verbose_name=_(
-        "book"), on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    user = models.ForeignKey(
+        "account.User", verbose_name=_("user"), on_delete=models.CASCADE
+    )
+    book = models.ForeignKey(
+        "bibook.Book", verbose_name=_("book"), on_delete=models.CASCADE
+    )
     text = models.TextField(_("text"))
     created_time = models.DateTimeField(_("create_time"), auto_now_add=True)
-
 
     class Meta:
         verbose_name = _("comment")
@@ -18,4 +20,3 @@ class Comment (models.Model):
 
     def __str__(self):
         return f"{self.book}_{self.user}_{self.text}"
-
