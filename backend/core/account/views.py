@@ -84,7 +84,7 @@ class VerifyEmail(APIView):
 
         email = user.email
         verify_code = randrange(1000, 10000)
-        r.set(str(user.email), verify_code, 75)
+        r.set(f"{user.id}_{user.email}", verify_code, 75)
         message = f"verify code : \n {verify_code}"
         subject = "verify email"
         send_mail(
@@ -101,13 +101,13 @@ class VerifyEmail(APIView):
         if user.verify:
             return Response({"user_stats": "already verified"})
 
-        if verify_code := r.get(str(user.email)):
+        if verify_code := r.get(f"{user.id}_{user.email}"):
             if str(request.data["verify_code"]) == str(
                 verify_code.decode("ascii")
             ):
                 user.verify = True
                 user.save()
-                r.delete(str(user.email))
+                r.delete(f"{user.id}_{user.email}")
 
                 return Response(
                     {
@@ -129,7 +129,7 @@ class ResetPassword(APIView):
             )
             email = user.email
             verify_code = randrange(1000, 10000)
-            r.set(str(user.username), verify_code, 75)
+            r.set(f"{user.id}_{user.username}", verify_code, 75)
             message = f"verify code : \n {verify_code}"
             subject = "reset password"
             send_mail(
@@ -151,13 +151,13 @@ class ResetPassword(APIView):
                 Q(username=request.data["user"])
                 | Q(email=request.data["user"])
             )
-            if verify_code := r.get(str(user.username)):
+            if verify_code := r.get(f"{user.id}_{user.username}"):
                 if str(request.data["verify_code"]) == str(
                     verify_code.decode("ascii")
                 ):
                     user.set_password(request.data["password"])
                     user.save()
-                    r.delete(str(user.username))
+                    r.delete(f"{user.id}_{user.username}")
 
                     return Response(
                         {"detail": "password updated"}, status=202
