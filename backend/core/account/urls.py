@@ -11,6 +11,7 @@ from account.views import (
     CustomTokenObtainPairView,
 )
 
+app_name = "account"
 
 urlpatterns = [
     # jwt
@@ -27,6 +28,6 @@ urlpatterns = [
     path("delete", DeleteUser.as_view(), name="delete"),
     path("user/<str:username>", ProfileUser.as_view(), name="profile"),
     path("change-password", ChangePassword.as_view(), name="change_password"),
-    path("verify", VerifyEmail.as_view(), name="verify email"),
-    path("reset-password", ResetPassword.as_view(), name="reset password"),
+    path("verify", VerifyEmail.as_view(), name="verify_email"),
+    path("reset-password", ResetPassword.as_view(), name="reset_password"),
 ]

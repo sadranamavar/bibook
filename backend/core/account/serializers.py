@@ -18,15 +18,17 @@ class UserSerializer(serializers.ModelSerializer):
             "saved",
         ]
         read_only_fields = ["id", "liked", "saved"]
-        
+
     def validate_username(self, value):
-        if '@' in str(value):
-            raise serializers.ValidationError("username field contains an illegal character")
+        if "@" in str(value):
+            raise serializers.ValidationError(
+                "username field contains an illegal character"
+            )
         return value
 
-        def create(self, validated_data):
-            validated_data.password = make_password(validated_data)
-            return validated_data
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        return validated_data
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
@@ -37,7 +39,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "birthday",
-            "profile_url",
+            "image_url",
             "liked",
             "saved",
             "email",

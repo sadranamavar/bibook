@@ -28,20 +28,22 @@ class CreateUser(generics.CreateAPIView):
 
 
 class DeleteUser(APIView):
-    permission_classes = [IsUser]
+    permission_classes = [IsAuthenticated]
 
-    def delete(self, request, pk):
+    def delete(self, request):
         user = User.objects.get(id=request.user.id)
         user.delete()
         return Response({}, status=201)
 
 
 class UpdateUser(APIView):
-    permission_classes = [IsUser]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = UserUpdateSerializer(
-            request.user, data=request.data, partial=True
+            request.user,
+            data=request.data,
+            partial=True,
         )
         if serializer.is_valid():
             serializer.save()

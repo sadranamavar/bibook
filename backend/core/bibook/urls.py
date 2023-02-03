@@ -7,7 +7,9 @@ book_router.register("", BookView)
 category_router = routers.SimpleRouter()
 category_router.register("", CategoryView)
 
+app_name = "bibook"
+
 urlpatterns = [
-    path("", include(book_router.urls)),
+    path("", include(book_router.urls), name="books"),
     path("category", include(category_router.urls)),
 ]

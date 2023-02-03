@@ -40,11 +40,15 @@ class BookView(ModelViewSet):
         user = request.user
         try:
             User.objects.get(id=user.id, liked__id=book.id)
+            if request.method == "GET":
+                return Response({"status": True})
             user.liked.remove(book.id)
             book.liked -= 1
             status = 202
 
         except:
+            if request.method == "GET":
+                return Response({"status": False})
             user.liked.add(book.id)
             book.liked += 1
             status = 201
@@ -64,11 +68,15 @@ class BookView(ModelViewSet):
         user = request.user
         try:
             User.objects.get(id=user.id, saved__id=book.id)
+            if request.method == "GET":
+                return Response({"status": True})
             user.saved.remove(book.id)
             book.saved -= 1
             status = 202
 
         except:
+            if request.method == "GET":
+                return Response({"status": False})
             user.saved.add(book.id)
             book.saved += 1
             status = 201
@@ -80,7 +88,7 @@ class BookView(ModelViewSet):
         methods=["get"],
         detail=True,
         url_path="get-comments",
-        url_name="get-comment",
+        url_name="get_comment",
     )
     def get_comment(self, request, pk=None):
         comment = Comment.objects.filter(book=pk)
@@ -91,7 +99,7 @@ class BookView(ModelViewSet):
         methods=["post"],
         detail=True,
         url_path="add-comment",
-        url_name="add-comment",
+        url_name="add_comment",
         permission_classes=[permissions.IsAuthenticated],
     )
     def add_comment(self, request, pk=None):
@@ -108,7 +116,7 @@ class BookView(ModelViewSet):
         methods=["delete"],
         detail=True,
         url_path="del-comment",
-        url_name="del-comment",
+        url_name="del_comment",
         permission_classes=[permissions.IsAuthenticatedOrReadOnly],
     )
     def del_comment(self, request, pk=None):
