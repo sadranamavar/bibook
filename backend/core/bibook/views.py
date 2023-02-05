@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from bibook.serializers import BookSerializer, CategorySerializer
@@ -27,6 +28,7 @@ class BookView(ModelViewSet):
     ]
     search_fields = ["title", "author", "translator", "publisher"]
     ordering_fields = ["liked", "saved", "created_time", "length"]
+    pagination_class = LimitOffsetPagination
 
     @action(
         methods=["post", "get"],
