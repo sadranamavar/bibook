@@ -279,3 +279,5 @@ TODO.md
 # config file
 *.conf
 
+# my db backup 
+postgres/*
