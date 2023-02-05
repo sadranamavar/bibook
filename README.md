@@ -12,7 +12,7 @@ run backend
 
 ```mv core/core/settings.py.sample core/core/settings.py```
 
-```mv core/dbs/redis/redis.conf.sample core/dbs/redis/redis.conf```
+```mv dbs/redis/redis.conf.sample dbs/redis/redis.conf```
 
 ```docker compose build ```
 
