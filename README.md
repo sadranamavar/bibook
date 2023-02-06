@@ -9,8 +9,9 @@ a small online library
 3. ```mv backend/core/core/settings.py.sample backend/core/core/settings.py```
 4. ```mv backend/dbs/redis/redis.conf.sample backend/dbs/redis/redis.conf```
 5. ```docker compose build ```
-6. ```docker compose exec -it backend ./manage.py makemigrations account bibook comment```
-7. ```docker compose exec -it backend ./manage.py migrate```
+6. ```docker compose up -d```
+7. ```docker compose exec -it backend ./manage.py makemigrations account bibook comment```
+8. ```docker compose exec -it backend ./manage.py migrate```
 
 ## run test 
 - ```docker compose exec -it backend  pytest .```
