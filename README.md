@@ -13,4 +13,4 @@ a small online library
 7. ```docker compose exec -it backend ./manage.py migrate```
 
 ## run test 
-- ```docker compose exec -it backend ./manage.py pytest .```
+- ```docker compose exec -it backend  pytest .```
