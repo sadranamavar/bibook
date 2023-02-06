@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  
+  backend:
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/core/:/code
+    ports:
+      - "8000:8000"
+
+  redis:
+    image: redis
+    command: ["redis-server", "/etc/redis/redis.conf"]
+    volumes:
+      - ./backend/dbs/redis/redis.conf:/etc/redis/redis.conf
+
+  postgres:
+    image: postgres:15.1-alpine
+    volumes:
+      - ./backend/dbs/postgres:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_PASSWORD=sample_password"
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/app:/code/app
+    command: sh -c "cd /code/app;npm start"

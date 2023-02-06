@@ -1,29 +1,16 @@
 # bibook
 
-this is a small online library 
+a small online library 
 
-### The project is under development. So it doesn't run completely
+## run bibook in development mode:
 
-#
+1. install docker 
+2. clone the project ```https://github.com/sadranamavar/bibook.git```
+3. ```mv backend/core/core/settings.py.sample backend/core/core/settings.py```
+4. ```mv backend/dbs/redis/redis.conf.sample backend/dbs/redis/redis.conf```
+5. ```docker compose build ```
+6. ```docker compose exec -it backend ./manage.py makemigrations account bibook comment```
+7. ```docker compose exec -it backend ./manage.py migrate```
 
-run backend  
-
-```cd backend ```
-
-```mv core/core/settings.py.sample core/core/settings.py```
-
-```mv dbs/redis/redis.conf.sample dbs/redis/redis.conf```
-
-```docker compose build ```
-
-```docker compose up ```
-
-#
-
-run frontend 
-
-```cd frontend ```
-
-```docker compose build ```
-
-```docker compose up ```
+## run test 
+- ```docker compose exec -it backend ./manage.py pytest .```
