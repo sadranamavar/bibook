@@ -1,6 +1,7 @@
 import "./single.css";
-import Book from "../../../../context/book";
-import { useContext } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import BookViewImage from "./image/image";
 import BookViewDetail from "./detail/detail";
 import BookViewDownload from "./download/download";
@@ -9,20 +10,31 @@ import BookViewComments from "./comments/comments";
 import Actions from "./actions/actions";
 
 const Body = () => {
-  const book = useContext(Book);
+  const [Data, setData] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getData = async (id) => {
+      const { data } = await axios.get(`http://127.0.0.1:8000/${id}`);
+
+      setData(data);
+    };
+
+    getData(id);
+  }, []);
 
   return (
     <>
       <div className="row">
-        <BookViewImage props={book} />
+        <BookViewImage props={Data} />
         <div className="col-lg-8 col-12">
-          <BookViewDetail book={book} />
+          <BookViewDetail book={Data} />
           <Actions />
-          <BookViewDownload props={book.url} />
+          <BookViewDownload props={Data.file_url} />
         </div>
       </div>
       <div>
-        <BookViewAbout props={book.about} />
+        <BookViewAbout props={Data.about} />
       </div>
       <BookViewComments />
     </>
