@@ -14,13 +14,9 @@ const Body = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const getData = async (id) => {
-      const { data } = await axios.get(`http://127.0.0.1:8000/${id}`);
-
+    axios.get(`http://127.0.0.1:8000/${id}`).then(({ data }) => {
       setData(data);
-    };
-
-    getData(id);
+    });
   }, []);
 
   return (
