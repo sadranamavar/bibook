@@ -12,17 +12,20 @@ const Home = () => {
   };
   useEffect(() => {
     const getData = async (query, id) => {
-      const { data } = await axios.get(
-        `http://127.0.0.1:8000/`,{
-          params:{
-            limit:4,
-            ordering:query,
-          }
-        }
-      );
+      const { data } = await axios.get(`http://127.0.0.1:8000/`, {
+        params: {
+          limit: 4,
+          ordering: query,
+        },
+      });
       setBooks((Books) => [
         ...Books,
-        { id: id, title: ListOfQuery[query], books: data.results },
+        {
+          id: id,
+          title: ListOfQuery[query],
+          books: data.results,
+          query: query,
+        },
       ]);
     };
     let id = 0;
