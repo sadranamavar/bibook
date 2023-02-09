@@ -23,9 +23,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Index />}>
             <Route path="" element={<Home />} />
-            <Route path="book/:id" element={<Filters />}>
-              <Route path="search" element={<Filter />} />
-              <Route path="" element={<SingleBook />} />
+            <Route path="/book" element={<Filters />}>
+              <Route path="sort/:query" element={<Filter />} />
+              <Route path=":id" element={<SingleBook />} />
             </Route>
           </Route>
             <Route path="/search" element={<Search />} />
