@@ -5,12 +5,17 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const Filter = () => {
-  const { query } = useParams();
+  const param = useParams();
   const [BookList, setBookList] = useState([]);
   useEffect(() => {
+    const query = param.query
+      ? ["ordering", param.query]
+      : ["search", param.search];
+    let params = { limit: 20 };
+    params[query[0]] = query[1];
     axios
       .get(`http://127.0.0.1:8000/`, {
-        params: { limit: 20, ordering: query },
+        params,
       })
       .then(({ data }) => {
         setBookList(data.results);

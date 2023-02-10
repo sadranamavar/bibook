@@ -25,6 +25,7 @@ const App = () => {
             <Route path="" element={<Home />} />
             <Route path="/book" element={<Filters />}>
               <Route path="sort/:query" element={<Filter />} />
+              <Route path="search/:search" element={<Filter />} />
               <Route path=":id" element={<SingleBook />} />
             </Route>
           </Route>
