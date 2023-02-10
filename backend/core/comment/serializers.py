@@ -2,13 +2,13 @@ from rest_framework import serializers
 from comment.models import Comment
 
 
-class UserUsernameField(serializers.RelatedField):
+class UserField(serializers.RelatedField):
     def to_representation(self, value):
-        return value.username
+        return {"profile": str(value.image_url), "title": value.username}
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = UserUsernameField(read_only=True)
+    user = UserField(read_only=True)
 
     class Meta:
         model = Comment

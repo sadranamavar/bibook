@@ -109,5 +109,3 @@ class TestBibook:
         self.book_test.save()
         response = self.client.get(url)
         assert response.status_code == 200
-
-    
