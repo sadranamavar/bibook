@@ -4,7 +4,7 @@ from comment.models import Comment
 
 class UserField(serializers.RelatedField):
     def to_representation(self, value):
-        return {"profile": str(value.image_url), "title": value.username}
+        return {"profile": str(value.image_url), "username": value.username}
 
 
 class CommentSerializer(serializers.ModelSerializer):
