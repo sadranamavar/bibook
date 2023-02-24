@@ -11,8 +11,8 @@ const BookViewDetail = ({ book }) => {
         <div className="col-6 p-3 border-1">
           <table className="table">
             <tr>
-              <th className="fw-normal pt-2 py-1 text-center">{book.relese}</th>
-              <th className="fs-5 fw-normal py-1 text-end">سال انتشار</th>
+              <th className="fw-normal pt-2 py-1 text-center">{book.title}</th>
+              <th className="fs-5 fw-normal py-1 text-end">عنوان</th>
             </tr>
             <tr>
               <th className="fw-normal pt-2 py-1 text-center">{book.length}</th>

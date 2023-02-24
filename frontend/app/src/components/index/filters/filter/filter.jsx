@@ -20,7 +20,7 @@ const Filter = () => {
       .then(({ data }) => {
         setBookList(data.results);
       });
-  }, []);
+  }, [param]);
   return (
     <>
       <div className="row pt-5">
