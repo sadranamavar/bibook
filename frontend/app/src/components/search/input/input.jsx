@@ -10,7 +10,6 @@ const SearchInput = () => {
       query: "",
     },
     onSubmit: (values) => {
-      console.log(values);
       return navigate(`/book/search/${values.query}`);
     },
   });
