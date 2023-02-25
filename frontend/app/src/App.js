@@ -15,6 +15,9 @@ import Counter from "./components/dashboard/counter/counter";
 import ChatsPage from "./components/dashboard/chats/chats";
 // router dom <--
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Forms from "./components/forms/froms";
+import Login from "./components/forms/login/login";
+import SignUp from "./components/forms/signup/signup";
 
 const App = () => {
   return (
@@ -29,11 +32,15 @@ const App = () => {
               <Route path=":id" element={<SingleBook />} />
             </Route>
           </Route>
-            <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/dashboard" element={<Dashboard />} >
             <Route path="" element={<Counter />}/> 
             <Route path="library" element={<Library />}/> 
             <Route path="chats" element={<ChatsPage />}/> 
+          </Route>
+          <Route path="/account" element={<Forms />}>
+            <Route path="login" element={<Login />}/>
+            <Route path="signup" element={<SignUp />}/>
           </Route>
         </Routes>
       </Router>
