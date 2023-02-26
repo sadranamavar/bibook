@@ -1,6 +1,10 @@
 .forms{
     height: 100vh;
-    overflow: hidden;
+    overflow: scroll;
 
 }
 
+::-webkit-scrollbar {
+    width: 0;
+    opacity: 0%;
+  }

@@ -1,11 +1,16 @@
-.login-submit-form-btn{
-    background: #4c5564;
+.login-submit-form-btn {
+  background: #4c5564;
 }
 
-.login-form-input{
-    border: 0;
-    /* margin-left: 4rem; */
-    border-radius: 10rem;
-    height: 150%;
-    font-size: x-large;
+.login-submit-form-btn:hover {
+  opacity: 90%;
+}
+
+.login-form-input {
+  border: 5px;
+  border-color: #a2a2a2;
+  border-radius: 10rem;
+  height: 150%;
+  font-size: x-large;
+  padding: 5px;
 }
