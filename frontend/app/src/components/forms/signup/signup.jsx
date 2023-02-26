@@ -1,5 +1,7 @@
 import "./signup.css";
 import image from "./image.jpg";
+import { Link } from "react-router-dom";
+
 const SignUp = () => {
   return (
     <>
@@ -58,6 +60,12 @@ const SignUp = () => {
               className="mt-5 text-light border-0 fs-4 shadow rounded-5 pb-3 login-submit-form-btn"
               value="ثبت نام"
             />
+            <span className="text-end pb-5 pt-4">
+              حساب کاربری دارید؟ 
+              <Link to={"/account/login"} className="link fs-4">
+              ورود
+              </Link>
+            </span>
           </div>
         </form>
       </div>
