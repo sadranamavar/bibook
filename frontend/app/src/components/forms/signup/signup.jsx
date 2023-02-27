@@ -10,14 +10,14 @@ const SignUp = () => {
         <form className="login-form pt-5">
           <div className="pt-5 px-5 d-flex justify-content-center align-items-center">
             <div className="col-6 mx-3">
-              <span className="d-block text-end pe-4 row">نام</span>
+              <span className="d-block text-end pe-4 row">نام خانوادگی</span>
               <input
                 type="text"
                 className="d-block border m-2 shadow-sm signup-form-input  login-form-input"
               ></input>
             </div>
             <div className="col-6 mx-3">
-              <span className="d-block text-end pe-4 row">نام خانوادگی</span>
+              <span className="d-block text-end pe-4 row">نام</span>
               <input
                 type="text"
                 className="d-block border m-2 shadow-sm signup-form-input  login-form-input"
@@ -61,9 +61,9 @@ const SignUp = () => {
               value="ثبت نام"
             />
             <span className="text-end pb-5 pt-4">
-              حساب کاربری دارید؟ 
+              حساب کاربری دارید؟
               <Link to={"/account/login"} className="link fs-4">
-              ورود
+                <t /> ورود
               </Link>
             </span>
           </div>

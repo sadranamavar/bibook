@@ -1,24 +1,45 @@
 import "./login.css";
 import image from "./image.jpg";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 const Login = () => {
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema:Yup.object({
+      username:Yup.string().required('is-invalid'),
+      password:Yup.string().required('is-invalid')
+    }),
+    onSubmit: (value) => {
+      console.log(value);
+    },
+  });
   return (
     <>
       <div className="col-12 col-lg-6">
         <h1 className="text-center m-5 pt-3">ورود</h1>
-        <form className="login-form pt-5">
+        <form className="login-form pt-5" onSubmit={formik.handleSubmit}>
           <div className="row p-5 d-flex justify-content-center align-items-center">
             <span className="d-block text-end row">نام کاربری</span>
             <input
               type="text"
-              className="row d-block border m-2 shadow-sm login-form-input"
+              onChange={formik.handleChange}
+              value={formik.values.username}
+              name="username"
+              className={`${formik.errors.username} form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
           </div>
           <div className="row px-5 d-flex justify-content-center align-items-center">
             <span className="d-block text-end row">رمزعبور</span>
             <input
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
               type="password"
-              className="row d-block border m-2 shadow-sm login-form-input"
+              className={`${formik.errors.username} form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
             <Link
               to={"/account/signup"}
@@ -36,7 +57,7 @@ const Login = () => {
             <span className="text-end pb-5 pt-4">
               حساب کاربری ندارید؟
               <Link to={"/account/signup"} className="link fs-4">
-                <t /> ثبت نام
+                 ثبت نام
               </Link>
             </span>
           </div>
