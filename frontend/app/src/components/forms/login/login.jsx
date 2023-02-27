@@ -2,16 +2,16 @@ import "./login.css";
 import image from "./image.jpg";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 const Login = () => {
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    validationSchema:Yup.object({
-      username:Yup.string().required('is-invalid'),
-      password:Yup.string().required('is-invalid')
+    validationSchema: Yup.object({
+      username: Yup.string().required("is-invalid"),
+      password: Yup.string().required("is-invalid"),
     }),
     onSubmit: (value) => {
       console.log(value);
@@ -29,7 +29,11 @@ const Login = () => {
               onChange={formik.handleChange}
               value={formik.values.username}
               name="username"
-              className={`${formik.touched.username && formik.errors.username ? formik.errors.username:null} form-control row d-block border m-2 shadow-sm login-form-input`}
+              className={`${
+                formik.touched.username && formik.errors.username
+                  ? formik.errors.username
+                  : null
+              } form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
           </div>
           <div className="row px-5 d-flex justify-content-center align-items-center">
@@ -39,7 +43,11 @@ const Login = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               type="password"
-              className={`${formik.touched.password && formik.errors.password ? formik.errors.password:null} form-control row d-block border m-2 shadow-sm login-form-input`}
+              className={`${
+                formik.touched.password && formik.errors.password
+                  ? formik.errors.password
+                  : null
+              } form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
             <Link
               to={"/account/signup"}
@@ -57,7 +65,7 @@ const Login = () => {
             <span className="text-end pb-5 pt-4">
               حساب کاربری ندارید؟
               <Link to={"/account/signup"} className="link pe-1 fs-4">
-                 ثبت نام
+                ثبت نام
               </Link>
             </span>
           </div>
