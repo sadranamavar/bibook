@@ -29,7 +29,7 @@ const Login = () => {
               onChange={formik.handleChange}
               value={formik.values.username}
               name="username"
-              className={`${formik.errors.username} form-control row d-block border m-2 shadow-sm login-form-input`}
+              className={`${formik.touched.username && formik.errors.username ? formik.errors.username:null} form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
           </div>
           <div className="row px-5 d-flex justify-content-center align-items-center">
@@ -39,7 +39,7 @@ const Login = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               type="password"
-              className={`${formik.errors.username} form-control row d-block border m-2 shadow-sm login-form-input`}
+              className={`${formik.touched.password && formik.errors.password ? formik.errors.password:null} form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
             <Link
               to={"/account/signup"}
@@ -56,7 +56,7 @@ const Login = () => {
             />
             <span className="text-end pb-5 pt-4">
               حساب کاربری ندارید؟
-              <Link to={"/account/signup"} className="link fs-4">
+              <Link to={"/account/signup"} className="link pe-1 fs-4">
                  ثبت نام
               </Link>
             </span>

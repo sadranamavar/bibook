@@ -62,8 +62,8 @@ const SignUp = () => {
             />
             <span className="text-end pb-5 pt-4">
               حساب کاربری دارید؟
-              <Link to={"/account/login"} className="link fs-4">
-                <t /> ورود
+              <Link to={"/account/login"} className="link pe-1 fs-4">
+                 ورود
               </Link>
             </span>
           </div>
