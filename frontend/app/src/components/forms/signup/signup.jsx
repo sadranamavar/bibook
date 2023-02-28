@@ -20,16 +20,10 @@ const SignUp = () => {
       username: Yup.string()
         .min(4, "is-invalid")
         .max(128, "is-invalid")
-        .required("is-invalid")
-        .test("is-invalid", () => {
-          return true;
-        }),
+        .required("is-invalid"),
       email: Yup.string()
         .email("is-invalid")
-        .required("is-invalid")
-        .test("is-invalid", () => {
-          return true;
-        }),
+        .required("is-invalid"),
       password: Yup.string().required("is-invalid"),
       repeatPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "is-invalid")

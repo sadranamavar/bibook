@@ -3,6 +3,8 @@ import image from "./image.jpg";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+
 const Login = () => {
   const formik = useFormik({
     initialValues: {
@@ -14,7 +16,13 @@ const Login = () => {
       password: Yup.string().required("is-invalid"),
     }),
     onSubmit: (value) => {
-      console.log(value);
+      console.log(value)
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/account/jwt/create/',
+        data: value
+      }).then(response=>{localStorage.setItem('JWT',JSON.stringify(response.data))})
+      .catch(error=>{console.error(error)})
     },
   });
   return (
