@@ -177,8 +177,11 @@ class ResetPassword(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
-        request.data["username"] = User.objects.get(
-            Q(username=request.data["username"])
-            | Q(email=request.data["username"])
-        ).username
+        try:
+            request.data["username"] = User.objects.get(
+                Q(username=request.data["username"])
+                | Q(email=request.data["username"])
+            ).username
+        except:
+            return Response({}, status=401)
         return super().post(request, *args, **kwargs)
