@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 const Login = () => {
   const formik = useFormik({
@@ -16,17 +17,22 @@ const Login = () => {
       password: Yup.string().required("is-invalid"),
     }),
     onSubmit: (value) => {
-      console.log(value)
       axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/account/jwt/create/',
-        data: value
-      }).then(response=>{localStorage.setItem('JWT',JSON.stringify(response.data))})
-      .catch(error=>{console.error(error)})
+        method: "post",
+        url: "http://127.0.0.1:8000/account/jwt/create/",
+        data: value,
+      })
+        .then((response) => {
+          localStorage.setItem("JWT", JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          toast.error("نام کاربری یا رمزعبور اشتباه است");
+        });
     },
   });
   return (
     <>
+      <Toaster />
       <div className="col-12 col-lg-6">
         <h1 className="text-center m-5 pt-3">ورود</h1>
         <form className="login-form pt-5" onSubmit={formik.handleSubmit}>
