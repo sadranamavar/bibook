@@ -18,10 +18,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Forms from "./components/forms/froms";
 import Login from "./components/forms/login/login";
 import SignUp from "./components/forms/signup/signup";
+import {  Toaster } from "react-hot-toast";
+
 
 const App = () => {
   return (
     <div className="app">
+      <Toaster   
+        position="top-right"
+        reverseOrder={false} />
       <Router>
         <Routes>
           <Route path="/" element={<Index />}>
