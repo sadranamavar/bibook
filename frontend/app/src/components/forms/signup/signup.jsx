@@ -1,10 +1,13 @@
 import "./signup.css";
 import image from "./image.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -21,16 +24,33 @@ const SignUp = () => {
         .min(4, "is-invalid")
         .max(128, "is-invalid")
         .required("is-invalid"),
-      email: Yup.string()
-        .email("is-invalid")
-        .required("is-invalid"),
+      email: Yup.string().email("is-invalid").required("is-invalid"),
       password: Yup.string().required("is-invalid"),
       repeatPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "is-invalid")
         .required("is-invalid"),
     }),
     onSubmit: (value) => {
-      console.log(value);
+      axios({
+        method: "post",
+        url: "http://127.0.0.1:8000/account/signup",
+        data: value,
+      })
+        .then((response) => {
+          axios({
+            method: "post",
+            url: "http://127.0.0.1:8000/account/jwt/create/",
+            data: value,
+          }).then((response) => {
+            localStorage.setItem("JWT", JSON.stringify(response.data));
+            toast.success("ثبت نام با موفقیت انجام شد");
+            toast("خوش آمدید", { icon: "👏" });
+            navigate("/dashboard");
+          });
+        })
+        .catch((error) => {
+          toast.error("نام کاربری یا ایمیل قبلا ثبت شده است");
+        });
     },
   });
   return (

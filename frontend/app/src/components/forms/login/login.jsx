@@ -1,12 +1,13 @@
 import "./login.css";
 import image from "./image.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -24,6 +25,8 @@ const Login = () => {
       })
         .then((response) => {
           localStorage.setItem("JWT", JSON.stringify(response.data));
+          toast.success('ورود با موفقیت انجام شد')
+          navigate('/dashboard')
         })
         .catch((error) => {
           toast.error("نام کاربری یا رمزعبور اشتباه است");
@@ -32,7 +35,6 @@ const Login = () => {
   });
   return (
     <>
-      <Toaster />
       <div className="col-12 col-lg-6">
         <h1 className="text-center m-5 pt-3">ورود</h1>
         <form className="login-form pt-5" onSubmit={formik.handleSubmit}>
