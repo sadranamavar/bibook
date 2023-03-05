@@ -24,7 +24,7 @@ const Login = () => {
         data: value,
       })
         .then((response) => {
-          localStorage.setItem("JWT", JSON.stringify(response.data));
+          localStorage.setItem("JWT", response.data.refresh);
           toast.success('ورود با موفقیت انجام شد')
           navigate('/dashboard')
         })

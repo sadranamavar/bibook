@@ -2,7 +2,6 @@ import "./comment.css";
 import icon from "./user.svg";
 const BookViewComment = ({ prop }) => {
   const image = prop.user.profile ? prop.user.profile:icon
-  console.log()
   return (
     <>
       <div className="book-view-comment border-bottom border-1 p-3">

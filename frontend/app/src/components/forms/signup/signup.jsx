@@ -42,7 +42,7 @@ const SignUp = () => {
             url: "http://127.0.0.1:8000/account/jwt/create/",
             data: value,
           }).then((response) => {
-            localStorage.setItem("JWT", JSON.stringify(response.data));
+            localStorage.setItem("JWT", response.data.refresh);
             toast.success("ثبت نام با موفقیت انجام شد");
             toast("خوش آمدید", { icon: "👏" });
             navigate("/dashboard");
