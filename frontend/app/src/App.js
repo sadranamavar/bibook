@@ -19,6 +19,7 @@ import Forms from "./components/forms/froms";
 import Login from "./components/forms/login/login";
 import SignUp from "./components/forms/signup/signup";
 import {  Toaster } from "react-hot-toast";
+import ResetPassword from "./components/forms/resetPassword/resetPassword";
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/account" element={<Forms />}>
             <Route path="login" element={<Login />}/>
             <Route path="signup" element={<SignUp />}/>
+            <Route path="reset-password" element={<ResetPassword/>} />
           </Route>
         </Routes>
       </Router>

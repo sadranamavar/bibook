@@ -66,7 +66,7 @@ const Login = () => {
               } form-control row d-block border m-2 shadow-sm login-form-input`}
             ></input>
             <Link
-              to={"/account/signup"}
+              to={"/account/reset-password"}
               className="text-end text-secondary link"
             >
               بازیابی رمز عبور
