@@ -1,5 +1,5 @@
+from uuid import uuid4
 from redis import Redis
-from random import randrange
 from django.db.models import Q
 from django.conf import settings
 from django.core.mail import send_mail
@@ -85,8 +85,8 @@ class VerifyEmail(APIView):
             return Response({"user_stats": "already verified"})
 
         email = user.email
-        verify_code = randrange(1000, 10000)
-        r.set(f"{user.id}_{user.email}", verify_code, 75)
+        verify_code = str(uuid4())
+        r.set(f"{user.id}_{user.email}", verify_code, 600)
         message = f"verify code : \n {verify_code}"
         subject = "verify email"
         send_mail(
@@ -130,8 +130,8 @@ class ResetPassword(APIView):
                 | Q(email=request.data["user"])
             )
             email = user.email
-            verify_code = randrange(1000, 10000)
-            r.set(f"{user.id}_{user.username}", verify_code, 75)
+            verify_code = str(uuid4())
+            r.set(f"{user.id}_{user.username}", verify_code, 600)
             message = f"verify code : \n {verify_code}"
             subject = "reset password"
             send_mail(
