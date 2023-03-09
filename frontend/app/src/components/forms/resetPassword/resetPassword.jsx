@@ -20,7 +20,7 @@ const ResetPassword = () => {
           method: "post",
           url: "http://127.0.0.1:8000/account/reset-password",
           data: value,
-        }).then(()=>{navigate('/login')}),
+        }).then(()=>{navigate('/account/login')}),
         {
           loading: "در حال ارسال لینک بازیابی",
           success: "لینک بازیابی ارسال شد",
@@ -52,8 +52,8 @@ const ResetPassword = () => {
           <div className="row px-5 d-flex justify-content-center align-items-center">
             <input
               type="submit"
-              className="mt-2 text-light border-0 fs-3 shadow rounded-5 pb-3 login-submit-form-btn"
-              value="ورود"
+              className="mt-2 text-light border-0 fs-3 shadow rounded-5 pb-2 login-submit-form-btn"
+              value="بازیابی"
             />
             <span className="text-end pb-5 pt-4">
               حساب کاربری ندارید؟
