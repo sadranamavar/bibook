@@ -132,7 +132,14 @@ class ResetPassword(APIView):
             email = user.email
             verify_code = str(uuid4())
             r.set(f"{user.id}_{user.username}", verify_code, 600)
-            message = f"verify code : \n {verify_code}"
+            message = f"""
+Hi {user.username},
+
+There was a request to change your password!
+
+If you did not make this request then please ignore this email.
+
+Otherwise, please click this link to change your password:  \n http://127.0.0.1:3000/account/change-password/{user.username}/{verify_code}"""
             subject = "reset password"
             send_mail(
                 subject=subject,
@@ -149,7 +156,7 @@ class ResetPassword(APIView):
 
     def patch(self, request):
         try:
-            user = User.objects.filter(
+            user = User.objects.get(
                 Q(username=request.data["user"])
                 | Q(email=request.data["user"])
             )
@@ -171,7 +178,7 @@ class ResetPassword(APIView):
 
         except:
             return Response(
-                {"detail": "username or email not find"}, status=401
+                {"detail": request.data["user"]}, status=401
             )
 
 

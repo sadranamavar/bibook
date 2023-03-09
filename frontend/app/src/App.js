@@ -20,6 +20,7 @@ import Login from "./components/forms/login/login";
 import SignUp from "./components/forms/signup/signup";
 import {  Toaster } from "react-hot-toast";
 import ResetPassword from "./components/forms/resetPassword/resetPassword";
+import ChangePassword from "./components/forms/changePassword/changePassword";
 
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="login" element={<Login />}/>
             <Route path="signup" element={<SignUp />}/>
             <Route path="reset-password" element={<ResetPassword/>} />
+            <Route path="change-password/:user/:verifyCode" element={<ChangePassword />}/>
           </Route>
         </Routes>
       </Router>
