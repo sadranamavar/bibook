@@ -1,5 +1,6 @@
 import "./login.css";
 import image from "./image.jpg";
+import useLogin from '../../../hooks/useLogin'
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -7,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const login = useLogin()
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -18,19 +20,7 @@ const Login = () => {
       password: Yup.string().required("is-invalid"),
     }),
     onSubmit: (value) => {
-      axios({
-        method: "post",
-        url: "http://127.0.0.1:8000/account/jwt/create/",
-        data: value,
-      })
-        .then((response) => {
-          localStorage.setItem("JWT", response.data.refresh);
-          toast.success('ورود با موفقیت انجام شد')
-          navigate('/dashboard')
-        })
-        .catch((error) => {
-          toast.error("نام کاربری یا رمزعبور اشتباه است");
-        });
+      login(value)
     },
   });
   return (

@@ -5,8 +5,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import useLogin from "../../../hooks/useLogin";
 
 const SignUp = () => {
+  const login = useLogin()
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -37,16 +39,8 @@ const SignUp = () => {
         data: value,
       })
         .then((response) => {
-          axios({
-            method: "post",
-            url: "http://127.0.0.1:8000/account/jwt/create/",
-            data: value,
-          }).then((response) => {
-            localStorage.setItem("JWT", response.data.refresh);
-            toast.success("ثبت نام با موفقیت انجام شد");
-            toast("خوش آمدید", { icon: "👏" });
-            navigate("/dashboard");
-          });
+          toast.success("ثبت نام با موفقیت انجام شد");
+          login(value)
         })
         .catch((error) => {
           toast.error("نام کاربری یا ایمیل قبلا ثبت شده است");
