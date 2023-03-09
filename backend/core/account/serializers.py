@@ -3,7 +3,13 @@ from account.models import User
 from django.contrib.auth.hashers import make_password
 
 
+class BookListField(serializers.RelatedField):
+    def to_representation(self, value):
+        return {"id": value.id, "title": value.title, "image_url":value.image_url}
+
 class UserSerializer(serializers.ModelSerializer):
+    liked = BookListField(many=True, read_only=True)
+    saved = BookListField(many=True, read_only=True)
     class Meta:
         model = User
         fields = [
@@ -17,7 +23,8 @@ class UserSerializer(serializers.ModelSerializer):
             "liked",
             "saved",
         ]
-        read_only_fields = ["id", "liked", "saved"]
+        read_only_fields = ["id"]
+
 
     def validate_username(self, value):
         if "@" in str(value):

@@ -9,6 +9,8 @@ from account.views import (
     ChangePassword,
     ResetPassword,
     VerifyEmail,
+    LikedBookLoginUser,
+    SaveBookLoginUser,
     CustomTokenObtainPairView,
 )
 
@@ -29,6 +31,8 @@ urlpatterns = [
     path("delete", DeleteUser.as_view(), name="delete"),
     path("user/<str:username>", ProfileUser.as_view(), name="profile"),
     path("user", ProfileLoginUser.as_view(), name="login_profile"),
+    path("liked/", LikedBookLoginUser.as_view(), name="liked_book"),
+    path("saved/", SaveBookLoginUser.as_view(), name="saved_book"),
     path("change-password", ChangePassword.as_view(), name="change_password"),
     path("verify", VerifyEmail.as_view(), name="verify_email"),
     path("reset-password", ResetPassword.as_view(), name="reset_password"),

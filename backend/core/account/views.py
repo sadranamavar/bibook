@@ -17,7 +17,8 @@ from account.serializers import (
     UserProfile,
 )
 from account.permissions import IsUser
-
+from bibook.models import Book
+from bibook.serializers import BookSerializer
 # Create your views here.
 
 
@@ -62,6 +63,25 @@ class ProfileLoginUser(APIView):
     def get(self, request):
         serializer = UserProfile(request.user)
         return Response(serializer.data)
+
+
+class LikedBookLoginUser(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = User.objects.get(id = request.user.id)
+        book = user.liked.all()
+        serializer = BookSerializer(book, many=True)
+        return Response(serializer.data)
+
+
+class SaveBookLoginUser(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = User.objects.get(id = request.user.id)
+        book = user.saved.all()
+        serializer = BookSerializer(book, many=True)
+        return Response(serializer.data)
+
 
 class ChangePassword(APIView):
     permission_classes = [IsAuthenticated]
