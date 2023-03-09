@@ -57,6 +57,12 @@ class ProfileUser(generics.RetrieveAPIView):
     lookup_field = "username"
 
 
+class ProfileLoginUser(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        serializer = UserProfile(request.user)
+        return Response(serializer.data)
+
 class ChangePassword(APIView):
     permission_classes = [IsAuthenticated]
 
