@@ -178,7 +178,7 @@ Otherwise, please click this link to change your password:  \n http://127.0.0.1:
 
         except:
             return Response(
-                {"detail": request.data["user"]}, status=401
+                {"detail": "username or email not find"}, status=401
             )
 
 
