@@ -1,13 +1,34 @@
 import "./library.css";
-import { useContext } from "react";
-import BookList from "../../../../context/books";
-import Category from "../../../index/home/category/category";
+import Books from "../../../index/home/category/books/books";
+import BooksTitle from "../../../index/home/category/title/title";
+import useAuthentication from "../../../../hooks/useAuthentication";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Library = () => {
-  const books = useContext(BookList);
+  const [books, setBooks] = useState([]);
+  const token = useAuthentication();
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/account/saved", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        setBooks(response.data);
+      });
+  }, [token]);
   return (
     <>
-        <Category props={books}/>
+      <>
+        <div className="container books d-block bg-light shadow-sm rounded-4 pb-3">
+          <div className="row m-1 mt-3">
+            <BooksTitle props="ذخیره شده" />
+          </div>
+          <div className="d-flex overflow-hidden hide-scroll">
+            <Books props={books} />
+          </div>
+        </div>
+      </>
     </>
   );
 };
