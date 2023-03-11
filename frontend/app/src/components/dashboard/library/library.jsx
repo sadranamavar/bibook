@@ -1,17 +1,15 @@
 import "./library.css";
-import Category from "../../index/home/category/category";
-import { useContext } from "react";
-import BookList from "../../../context/books";
+import Like from "./like/like";
+import Save from "./save/save";
 
 const Library = () => {
-  const books = useContext(BookList);
   return (
     <div className="row ms-2 pt-4">
       <div className="row my-3">
-        <Category props={books} />
+        <Like />
       </div>
       <div className="row  my-3">
-        <Category props={books} />
+        <Save />
       </div>
     </div>
   );
