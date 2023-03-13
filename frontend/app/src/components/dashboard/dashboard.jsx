@@ -14,18 +14,13 @@ const Dashboard = () => {
     else setNavbarView("none");
   };
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/account/user',
-      {
+    axios
+      .get("http://127.0.0.1:8000/account/user", {
         headers: { Authorization: token },
-      }
-    )
-      .then((response) => {
-        window.sessionStorage.setItem('username', response.data.username)
-        window.sessionStorage.setItem('image_url', response.data.image_url)
-
       })
-      .catch((error) => {
-        console.log("error");
+      .then((response) => {
+        window.sessionStorage.setItem("username", response.data.username);
+        window.sessionStorage.setItem("image_url", response.data.image_url);
       });
   }, [token]);
   return (

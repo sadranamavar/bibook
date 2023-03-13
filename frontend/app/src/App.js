@@ -11,7 +11,8 @@ import Index from "./components/index";
 import Filters from "./components/index/filters/filter";
 import Home from "./components/index/home/home";
 import Library from "./components/dashboard/library/library";
-import List from './components/dashboard/library/list/list'
+import List from './components/dashboard/library/list/list';
+import LikeOrSave from "./components/dashboard/library/LikeOrSave/LikeOrSave";
 import Counter from "./components/dashboard/counter/counter";
 import ChatsPage from "./components/dashboard/chats/chats";
 import Forms from "./components/forms/forms";
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="" element={<Counter />}/> 
             <Route path="library" element={<Library />}>
               <Route path="" element={<List />}/>
+              <Route path=":query" element={<LikeOrSave />}/>
             </Route> 
             <Route path="chats" element={<ChatsPage />}/> 
           </Route>
